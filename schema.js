@@ -4,6 +4,7 @@ const {
     GraphQLInt,
     GraphQLList,
     GraphQLFloat,
+    GraphQLBoolean,
     GraphQLSchema
 } = require('graphql');
 
@@ -41,6 +42,17 @@ const trendingMovieType = new GraphQLObjectType({
     })
 });
 
+// Search Movie Type
+const searchMovieType = new GraphQLObjectType({
+    name: 'SearchMovie',
+    fields: () => ({
+        page: { type: GraphQLInt },
+        total_results: { type: GraphQLInt },
+        total_pages: { type: GraphQLInt },
+        results: { type: GraphQLList(movieType) }
+    })
+});
+
 const rootType = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -67,6 +79,16 @@ const rootType = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 return repository.getTrendingMovies(args.media_type, args.time_window);
+            }
+        },
+        searchMovies: {
+            type: searchMovieType,
+            args: {
+                keyword: { type: GraphQLString },
+                include_adult: { type: GraphQLBoolean }
+            },
+            resolve(parent, args) {
+                return repository.searchMovie(args.keyword, args.include_adult);
             }
         }
     }
