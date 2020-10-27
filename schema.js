@@ -7,7 +7,7 @@ const {
     GraphQLSchema
 } = require('graphql');
 
-const getMovieList = require('./repository');
+const repository = require('./repository');
 
 // Movie List Type
 const movieListType = new GraphQLObjectType({
@@ -23,7 +23,7 @@ const movieListType = new GraphQLObjectType({
 const movieType = new GraphQLObjectType({
     name: 'Movie',
     fields: () => ({
-        id: { type: GraphQLString },
+        id: { type: GraphQLInt },
         title: { type: GraphQLString },
         vote_average: { type: GraphQLFloat },
         poster_path: { type: GraphQLString },
@@ -38,7 +38,16 @@ const rootType = new GraphQLObjectType({
         movies: {
             type: movieListType,
             resolve() {
-                return getMovieList;
+                return repository.getAllMovies();
+            }
+        },
+        movie: {
+            type: movieType,
+            args: {
+                movie_id: { type: GraphQLInt }
+            },
+            resolve(parent, args) {
+                return repository.getMovie(args.movie_id);
             }
         }
     }
