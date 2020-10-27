@@ -32,6 +32,15 @@ const movieType = new GraphQLObjectType({
     })
 });
 
+// Trending Movie Type
+const trendingMovieType = new GraphQLObjectType({
+    name: 'TrendingMovie',
+    fields: () => ({
+        page: { type: GraphQLInt },
+        results: { type: GraphQLList(movieType) }
+    })
+});
+
 const rootType = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -48,6 +57,16 @@ const rootType = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 return repository.getMovie(args.movie_id);
+            }
+        },
+        trendingMovies: {
+            type: trendingMovieType,
+            args: {
+                media_type: { type: GraphQLString },
+                time_window: { type: GraphQLString }
+            },
+            resolve(parent, args) {
+                return repository.getTrendingMovies(args.media_type, args.time_window);
             }
         }
     }

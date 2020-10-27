@@ -8,6 +8,7 @@ const API_KEY_PARAM = `api_key=${API_KEY}`;
 const LANGUAGE_PARAM = `&language=en-US`;
 const MOVIE_LIST_URL = `/list/1?`;
 const MOVIE_DETAIL_URL = `/movie/`;
+const TRENDING_MOVIES_URL = `/trending/`;
 
 function getHTTPClient(httpRequestMethod, url) {
     switch (httpRequestMethod) {
@@ -34,4 +35,15 @@ function getMovie(movieId) {
         .catch((error) => {console.error(error.message)});
 }
 
-module.exports = {getAllMovies, getMovie};
+function getTrendingMovies(mediaType, timeWindow) {
+    const targetURL = `${BASE_URL}${TRENDING_MOVIES_URL}${mediaType}/${timeWindow}?${API_KEY_PARAM}${LANGUAGE_PARAM}`;
+    return getHTTPClient("GET", targetURL)
+        .then(res => res.data)
+        .catch((error) => {console.error(error.message)});
+}
+
+module.exports = {
+    getAllMovies,
+    getMovie,
+    getTrendingMovies
+};
