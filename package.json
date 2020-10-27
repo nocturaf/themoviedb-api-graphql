@@ -1,0 +1,29 @@
+{
+  "name": "themoviedb-api-graphql",
+  "version": "1.0.0",
+  "description": "The Movie Database API using Express, Axios and GraphQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nocturaf/themoviedb-api-graphql.git"
+  },
+  "author": "Muh Rafli Syam - nocturaf@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nocturaf/themoviedb-api-graphql/issues"
+  },
+  "homepage": "https://github.com/nocturaf/themoviedb-api-graphql#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.11.0",
+    "graphql": "^15.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
