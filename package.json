@@ -2,10 +2,10 @@
   "name": "themoviedb-api-graphql",
   "version": "1.0.0",
   "description": "The Movie Database API using Express, Axios and GraphQL",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "set NODE_ENV=development && nodemon server.js"
+    "start": "node src/server.js",
+    "server": "set NODE_ENV=development && nodemon src/server.js"
   },
   "repository": {
     "type": "git",
